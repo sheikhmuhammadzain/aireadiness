@@ -76,9 +76,9 @@ const baseQuestions: AssessmentQuestion[] = [
     ]
   },
   {
-    id: 'technical-infrastructure',
-    domain: 'technical_infrastructure',
-    text: 'What is the state of your technical infrastructure for AI?',
+    id: 'strategic-alignment',
+    domain: 'strategy',
+    text: 'How well is AI adoption aligned with your organizational strategy?',
     weight: {
       baseWeight: 1.8,
       industry: baseWeights.industry,
@@ -87,25 +87,306 @@ const baseQuestions: AssessmentQuestion[] = [
     options: [
       {
         value: 1,
-        label: 'Basic',
-        description: 'Limited computing resources',
+        label: 'No Alignment',
+        description: 'No clear connection between AI initiatives and business strategy',
         recommendations: [
-          'Implement cloud infrastructure',
-          'Develop computing strategy',
-          'Create resource management'
+          'Develop AI strategy roadmap',
+          'Identify key business objectives for AI implementation',
+          'Create AI governance framework'
         ],
-        estimatedCost: { min: 75000, max: 150000, currency: 'USD' }
+        estimatedCost: { min: 30000, max: 80000, currency: 'USD' }
       },
       {
-        value: 4,
-        label: 'Advanced',
-        description: 'Cloud-native infrastructure with ML capabilities',
+        value: 2,
+        label: 'Partial Alignment',
+        description: 'Some AI initiatives aligned with business goals but lacking comprehensive strategy',
         recommendations: [
-          'Implement advanced orchestration',
-          'Develop automated scaling',
-          'Create MLOps platform'
+          'Strengthen alignment between AI and business objectives',
+          'Develop KPIs for AI initiatives',
+          'Create change management plan'
         ],
-        estimatedCost: { min: 300000, max: 600000, currency: 'USD' }
+        estimatedCost: { min: 50000, max: 120000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Strong Alignment',
+        description: 'Clear alignment between AI strategy and organizational objectives',
+        recommendations: [
+          'Optimize AI governance',
+          'Scale successful AI initiatives',
+          'Develop AI innovation pipeline'
+        ],
+        estimatedCost: { min: 100000, max: 250000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'data-quality',
+    domain: 'data_infrastructure',
+    text: 'How would you rate the quality and accessibility of your data for AI applications?',
+    weight: {
+      baseWeight: 1.7,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Basic',
+        description: 'Unstructured data with quality issues and limited accessibility',
+        recommendations: [
+          'Implement data quality framework',
+          'Establish data cleaning procedures',
+          'Create data accessibility standards'
+        ],
+        estimatedCost: { min: 40000, max: 90000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Intermediate',
+        description: 'Partially structured data with some quality controls',
+        recommendations: [
+          'Enhance data validation processes',
+          'Implement automated data quality checks',
+          'Develop data governance policies'
+        ],
+        estimatedCost: { min: 70000, max: 150000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Advanced',
+        description: 'High-quality, well-structured data with robust accessibility',
+        recommendations: [
+          'Implement advanced data quality monitoring',
+          'Develop real-time data processing capabilities',
+          'Establish data quality metrics'
+        ],
+        estimatedCost: { min: 120000, max: 300000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'technical-infrastructure',
+    domain: 'infrastructure',
+    text: 'What is the state of your technical infrastructure for AI implementation?',
+    weight: {
+      baseWeight: 1.6,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Basic',
+        description: 'Limited computing resources and basic IT infrastructure',
+        recommendations: [
+          'Assess cloud computing needs',
+          'Upgrade hardware infrastructure',
+          'Implement scalable architecture'
+        ],
+        estimatedCost: { min: 100000, max: 250000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Moderate',
+        description: 'Some cloud resources and modern infrastructure components',
+        recommendations: [
+          'Optimize cloud resource utilization',
+          'Implement containerization',
+          'Enhance security measures'
+        ],
+        estimatedCost: { min: 150000, max: 350000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Advanced',
+        description: 'Robust cloud infrastructure with modern AI-ready components',
+        recommendations: [
+          'Implement advanced monitoring',
+          'Optimize cost management',
+          'Enhance disaster recovery'
+        ],
+        estimatedCost: { min: 200000, max: 500000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'talent-readiness',
+    domain: 'workforce',
+    text: 'How would you assess your organization\'s AI talent and skills readiness?',
+    weight: {
+      baseWeight: 1.7,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Limited',
+        description: 'Few or no staff with AI/ML expertise',
+        recommendations: [
+          'Develop AI training program',
+          'Create hiring strategy for AI talent',
+          'Establish partnerships with AI experts'
+        ],
+        estimatedCost: { min: 80000, max: 200000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Developing',
+        description: 'Some AI expertise but gaps in key areas',
+        recommendations: [
+          'Expand internal AI training',
+          'Develop AI career paths',
+          'Create knowledge sharing programs'
+        ],
+        estimatedCost: { min: 150000, max: 300000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Strong',
+        description: 'Robust AI expertise across relevant areas',
+        recommendations: [
+          'Implement advanced AI training',
+          'Develop AI innovation programs',
+          'Create AI centers of excellence'
+        ],
+        estimatedCost: { min: 200000, max: 450000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'process-maturity',
+    domain: 'processes',
+    text: 'How mature are your organizational processes for AI implementation?',
+    weight: {
+      baseWeight: 1.5,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Ad-hoc',
+        description: 'No standardized processes for AI implementation',
+        recommendations: [
+          'Develop AI implementation framework',
+          'Create process documentation',
+          'Establish quality controls'
+        ],
+        estimatedCost: { min: 40000, max: 100000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Defined',
+        description: 'Basic processes defined but not fully implemented',
+        recommendations: [
+          'Optimize existing processes',
+          'Implement monitoring systems',
+          'Develop feedback mechanisms'
+        ],
+        estimatedCost: { min: 70000, max: 150000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Optimized',
+        description: 'Well-defined and continuously improved processes',
+        recommendations: [
+          'Implement advanced process automation',
+          'Develop predictive analytics',
+          'Create innovation frameworks'
+        ],
+        estimatedCost: { min: 100000, max: 200000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'ethical-governance',
+    domain: 'governance',
+    text: 'How well established are your AI ethics and governance frameworks?',
+    weight: {
+      baseWeight: 1.6,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Initial',
+        description: 'No formal AI ethics or governance framework',
+        recommendations: [
+          'Develop AI ethics guidelines',
+          'Create governance structure',
+          'Implement oversight mechanisms'
+        ],
+        estimatedCost: { min: 50000, max: 120000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Developing',
+        description: 'Basic ethics guidelines and governance structure',
+        recommendations: [
+          'Enhance ethics framework',
+          'Implement monitoring tools',
+          'Develop stakeholder engagement'
+        ],
+        estimatedCost: { min: 80000, max: 180000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Mature',
+        description: 'Comprehensive ethics and governance framework',
+        recommendations: [
+          'Optimize governance processes',
+          'Implement advanced monitoring',
+          'Develop industry leadership'
+        ],
+        estimatedCost: { min: 150000, max: 300000, currency: 'USD' }
+      }
+    ]
+  },
+  {
+    id: 'change-management',
+    domain: 'culture',
+    text: 'How effective is your organization\'s change management for AI adoption?',
+    weight: {
+      baseWeight: 1.5,
+      industry: baseWeights.industry,
+      companySize: baseWeights.companySize
+    },
+    options: [
+      {
+        value: 1,
+        label: 'Basic',
+        description: 'Limited change management capabilities',
+        recommendations: [
+          'Develop change management strategy',
+          'Create communication plan',
+          'Implement training programs'
+        ],
+        estimatedCost: { min: 40000, max: 100000, currency: 'USD' }
+      },
+      {
+        value: 2,
+        label: 'Structured',
+        description: 'Formal change management processes in place',
+        recommendations: [
+          'Enhance stakeholder engagement',
+          'Develop metrics for success',
+          'Create feedback mechanisms'
+        ],
+        estimatedCost: { min: 70000, max: 150000, currency: 'USD' }
+      },
+      {
+        value: 3,
+        label: 'Advanced',
+        description: 'Comprehensive change management framework',
+        recommendations: [
+          'Optimize change processes',
+          'Implement advanced analytics',
+          'Develop leadership programs'
+        ],
+        estimatedCost: { min: 100000, max: 200000, currency: 'USD' }
       }
     ]
   }
