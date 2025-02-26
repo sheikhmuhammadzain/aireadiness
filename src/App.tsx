@@ -22,11 +22,11 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 30, // 30 minutes
+      gcTime: 1000 * 60 * 30, // 30 minutes
       retry: 3,
       refetchOnWindowFocus: false,
-      onError: (error) => {
-        logger.error('Query error:', error as Error)
+      onError: (error: Error) => {
+        logger.error('Query error:', error)
       }
     },
   },
@@ -73,7 +73,7 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <Router>
+        <Router basename={import.meta.env.BASE_URL}>
           <RootLayout>
             <Suspense fallback={<PageLoader />}>
               <Routes>
