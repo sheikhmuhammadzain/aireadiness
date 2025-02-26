@@ -69,12 +69,12 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                         <ul className="grid w-[400px] gap-3 p-4">
                           <li>
                             <MenuLink href="/best-practices" title="Best Practices">
-                              Learn about AI implementation best practices
+                              Learn about AI implementation best practices and guidelines
                             </MenuLink>
                           </li>
                           <li>
                             <MenuLink href="/documentation" title="Documentation">
-                              Access detailed documentation and guides
+                              Access detailed documentation and technical guides
                             </MenuLink>
                           </li>
                         </ul>
