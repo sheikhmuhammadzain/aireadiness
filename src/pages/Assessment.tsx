@@ -6,7 +6,6 @@ import { Progress } from '@/components/ui/progress';
 import { useAssessmentStore } from '@/store/assessment';
 import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AssessmentQuestion } from '@/types/assessment';
 
 export const Assessment = () => {
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ export const Assessment = () => {
 
   if (!question) {
     return (
-      <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-3xl">
         <Alert>
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>No Questions Available</AlertTitle>
@@ -64,95 +63,103 @@ export const Assessment = () => {
   const remainingQuestions = questions.length - Object.keys(answers).length;
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">AI Readiness Assessment</h1>
-        <p className="text-muted-foreground">
-          Answer the following questions to evaluate your organization's AI readiness
-        </p>
-      </div>
-
-      <div className="mb-6">
-        <div className="flex justify-between text-sm text-muted-foreground mb-2">
-          <span>Progress</span>
-          <span>{Math.round(progress)}%</span>
+    <div className="min-h-[calc(100vh-4rem)] bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 max-w-3xl">
+        <div className="mb-6 sm:mb-8 lg:mb-10">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3">AI Readiness Assessment</h1>
+          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">
+            Answer the following questions to evaluate your organization's AI readiness
+          </p>
         </div>
-        <Progress value={progress} className="h-2" />
-      </div>
 
-      {Object.keys(answers).length > 0 && (
-        <Alert className="mb-6">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Assessment in Progress</AlertTitle>
-          <AlertDescription>
-            You can return to this assessment later. Your progress is automatically saved.
-            {remainingQuestions > 0 && (
-              <span className="block mt-2">
-                {remainingQuestions} question{remainingQuestions > 1 ? 's' : ''} remaining
+        <div className="mb-6 sm:mb-8">
+          <div className="flex justify-between text-xs sm:text-sm text-muted-foreground mb-2">
+            <span>Progress</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <Progress value={progress} className="h-2 sm:h-3" />
+        </div>
+
+        {Object.keys(answers).length > 0 && (
+          <Alert className="mb-6 sm:mb-8">
+            <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <div>
+              <AlertTitle className="text-sm sm:text-base">Assessment in Progress</AlertTitle>
+              <AlertDescription className="text-xs sm:text-sm">
+                You can return to this assessment later. Your progress is automatically saved.
+                {remainingQuestions > 0 && (
+                  <span className="block mt-2">
+                    {remainingQuestions} question{remainingQuestions > 1 ? 's' : ''} remaining
+                  </span>
+                )}
+              </AlertDescription>
+            </div>
+          </Alert>
+        )}
+
+        <Card className="border shadow-sm">
+          <CardHeader className="space-y-3 sm:space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                {question.domain.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
               </span>
-            )}
-          </AlertDescription>
-        </Alert>
-      )}
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                Question {currentQuestionIndex + 1} of {questions.length}
+              </span>
+            </div>
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl">{question.text}</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">
+              Select the option that best describes your organization's current state
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent>
+            <div className="grid gap-3 sm:gap-4">
+              {question.options.map((option) => (
+                <Button
+                  key={option.value}
+                  variant={currentAnswer === option.value ? "default" : "outline"}
+                  className="h-auto p-4 sm:p-5 flex flex-col items-start w-full text-left transition-colors"
+                  onClick={() => handleAnswer(option.value)}
+                >
+                  <div className="font-semibold text-sm sm:text-base">{option.label}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
+                    {option.description}
+                  </div>
+                </Button>
+              ))}
+            </div>
+          </CardContent>
 
-      <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-muted-foreground">
-              {question.domain.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-            </span>
-            <span className="text-sm text-muted-foreground">
-              Question {currentQuestionIndex + 1} of {questions.length}
-            </span>
-          </div>
-          <CardTitle className="text-xl">{question.text}</CardTitle>
-          <CardDescription>
-            Select the option that best describes your organization's current state
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
-            {question.options.map((option) => (
+          <CardFooter className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-between">
+            <div className="flex gap-2 w-full sm:w-auto">
               <Button
-                key={option.value}
-                variant={currentAnswer === option.value ? "default" : "outline"}
-                className="h-auto p-4 flex flex-col items-start"
-                onClick={() => handleAnswer(option.value)}
+                variant="outline"
+                onClick={() => previousQuestion()}
+                disabled={currentQuestionIndex === 0}
+                className="flex-1 sm:flex-none"
               >
-                <div className="font-semibold">{option.label}</div>
-                <div className="text-sm text-muted-foreground text-left mt-1">
-                  {option.description}
-                </div>
+                Previous
               </Button>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                onClick={handleReset}
+                className="text-destructive hover:text-destructive flex-1 sm:flex-none"
+              >
+                Reset
+              </Button>
+            </div>
             <Button
               variant="outline"
-              onClick={() => previousQuestion()}
-              disabled={currentQuestionIndex === 0}
+              onClick={() => nextQuestion()}
+              disabled={!currentAnswer}
+              className="w-full sm:w-auto"
             >
-              Previous
+              {isLastQuestion ? 'Finish' : 'Skip'}
             </Button>
-            <Button
-              variant="ghost"
-              onClick={handleReset}
-              className="text-destructive hover:text-destructive"
-            >
-              Reset
-            </Button>
-          </div>
-          <Button
-            variant="outline"
-            onClick={() => nextQuestion()}
-            disabled={!currentAnswer}
-          >
-            {isLastQuestion ? 'Finish' : 'Skip'}
-          </Button>
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
-}; 
+};

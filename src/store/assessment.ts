@@ -76,16 +76,47 @@ const generateRecommendations = (
   answers: Record<string, number>,
   questions: AssessmentQuestion[]
 ): string[] => {
-  const recommendations: string[] = []
+  const recommendations: string[] = [];
   questions
     .filter(q => q.domain === domain)
     .forEach(question => {
-      const answer = answers[question.id]
-      if (answer && question.options[answer - 1].recommendations) {
-        recommendations.push(...question.options[answer - 1].recommendations!)
+      const answerIndex = answers[question.id];
+      if (answerIndex && question.options[answerIndex - 1]) {
+        const option = question.options[answerIndex - 1];
+        if (option && option.recommendations && Array.isArray(option.recommendations)) {
+          recommendations.push(...option.recommendations);
+        }
       }
-    })
-  return recommendations
+    });
+  
+  // Add default recommendations if none were found
+  if (recommendations.length === 0) {
+    switch (domain) {
+      case 'data_infrastructure':
+        recommendations.push('Consider implementing a centralized data storage solution');
+        break;
+      case 'talent_capability':
+        recommendations.push('Invest in AI and data science training for your team');
+        break;
+      case 'ethics_governance':
+        recommendations.push('Develop AI ethics guidelines and governance frameworks');
+        break;
+      case 'technical_infrastructure':
+        recommendations.push('Evaluate and upgrade computing resources for AI workloads');
+        break;
+      case 'business_strategy':
+        recommendations.push('Align AI initiatives with business objectives');
+        break;
+      case 'data_quality':
+        recommendations.push('Implement data quality assessment and improvement processes');
+        break;
+      case 'security_compliance':
+        recommendations.push('Review and enhance data security measures');
+        break;
+    }
+  }
+  
+  return recommendations;
 }
 
 export const useAssessmentStore = create<AssessmentState>()(
@@ -183,24 +214,24 @@ export const useAssessmentStore = create<AssessmentState>()(
           Object.keys(domainScores).length
         )
 
-        // Calculate costs
+        // Calculate costs with safety checks
         const estimatedCosts = {
           infrastructure: 0,
           training: 0,
           implementation: 0,
           total: 0,
           roi: {
-            optimistic: 2.5, // 250% ROI
-            conservative: 1.5, // 150% ROI
-            timeframe: 24 // months
+            optimistic: 2.5,
+            conservative: 1.5,
+            timeframe: 24
           }
         }
 
         questions.forEach(question => {
-          const answer = answers[question.id]
-          if (answer) {
-            const option = question.options[answer - 1]
-            if (option.estimatedCost) {
+          const answerIndex = answers[question.id]
+          if (answerIndex && question.options[answerIndex - 1]) {
+            const option = question.options[answerIndex - 1]
+            if (option?.estimatedCost) {
               const avgCost = (option.estimatedCost.min + option.estimatedCost.max) / 2
               estimatedCosts.total += avgCost
 
