@@ -1,22 +1,20 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { RootLayout } from './layouts/RootLayout'
-import { ErrorBoundary } from './components/ErrorBoundary'
-import { LoadingSpinner } from './components/LoadingSpinner'
-import { useAssessmentStore } from './store/assessment'
-import { logger } from './lib/logger'
+import RootLayout from './layouts/RootLayout'
+import ErrorBoundary from './components/ErrorBoundary'
+import LoadingSpinner from './components/LoadingSpinner'
+import useAssessmentStore from './store/assessment'
+import logger from './lib/logger'
 import './styles/globals.css'
 
 // Lazy load components for better performance
-const Home = React.lazy(() => import('./pages/Home').then(module => ({ default: module.Home })))
-const Assessment = React.lazy(() => import('./pages/Assessment').then(module => ({ default: module.Assessment })))
-const Results = React.lazy(() => import('./pages/Results').then(module => ({ default: module.Results })))
-const BestPractices = React.lazy(() => import('./pages/BestPractices').then(module => ({ default: module.BestPractices })))
-const Documentation = React.lazy(() => import('./pages/Documentation').then(module => ({ default: module.Documentation })))
-const OrganizationProfileForm = React.lazy(() => 
-  import('./components/OrganizationProfileForm').then(module => ({ default: module.OrganizationProfileForm }))
-)
+const Home = React.lazy(() => import('./pages/Home'))
+const Assessment = React.lazy(() => import('./pages/Assessment'))
+const Results = React.lazy(() => import('./pages/Results'))
+const BestPractices = React.lazy(() => import('./pages/BestPractices'))
+const Documentation = React.lazy(() => import('./pages/Documentation'))
+const OrganizationProfileForm = React.lazy(() => import('./components/OrganizationProfileForm'))
 
 const queryClient = new QueryClient({
   defaultOptions: {

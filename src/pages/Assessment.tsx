@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { useAssessmentStore } from '@/store/assessment';
-import { AlertCircle } from 'lucide-react';
+import useAssessmentStore from '@/store/assessment';
+import { WarningCircle } from '@phosphor-icons/react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-export const Assessment = () => {
+const Assessment = () => {
   const navigate = useNavigate();
   const {
     currentQuestionIndex,
@@ -44,9 +44,9 @@ export const Assessment = () => {
 
   if (!question) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-3xl">
+      <div className="container mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-12 max-w-3xl">
         <Alert>
-          <AlertCircle className="h-4 w-4" />
+          <WarningCircle className="h-4 w-4" />
           <AlertTitle>No Questions Available</AlertTitle>
           <AlertDescription>
             Please complete your organization profile first.
@@ -64,15 +64,15 @@ export const Assessment = () => {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 max-w-3xl">
-        <div className="mb-6 sm:mb-8 lg:mb-10">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3">AI Readiness Assessment</h1>
-          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">
+      <div className="container mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-12 max-w-3xl">
+        <div className="mb-4 sm:mb-6 lg:mb-10">
+          <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-2 sm:mb-3">AI Readiness Assessment</h1>
+          <p className="text-xs sm:text-sm lg:text-lg text-muted-foreground">
             Answer the following questions to evaluate your organization's AI readiness
           </p>
         </div>
 
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-4 sm:mb-6 lg:mb-8">
           <div className="flex justify-between text-xs sm:text-sm text-muted-foreground mb-2">
             <span>Progress</span>
             <span>{Math.round(progress)}%</span>
@@ -81,8 +81,8 @@ export const Assessment = () => {
         </div>
 
         {Object.keys(answers).length > 0 && (
-          <Alert className="mb-6 sm:mb-8">
-            <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+          <Alert className="mb-4 sm:mb-6 lg:mb-8">
+            <WarningCircle className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             <div>
               <AlertTitle className="text-sm sm:text-base">Assessment in Progress</AlertTitle>
               <AlertDescription className="text-xs sm:text-sm">
@@ -98,7 +98,7 @@ export const Assessment = () => {
         )}
 
         <Card className="border shadow-sm">
-          <CardHeader className="space-y-3 sm:space-y-4">
+          <CardHeader className="space-y-2 sm:space-y-4 p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <span className="text-xs sm:text-sm text-muted-foreground">
                 {question.domain.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -107,23 +107,23 @@ export const Assessment = () => {
                 Question {currentQuestionIndex + 1} of {questions.length}
               </span>
             </div>
-            <CardTitle className="text-lg sm:text-xl lg:text-2xl">{question.text}</CardTitle>
+            <CardTitle className="text-base sm:text-xl lg:text-2xl">{question.text}</CardTitle>
             <CardDescription className="text-xs sm:text-sm">
               Select the option that best describes your organization's current state
             </CardDescription>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="p-4 sm:p-6">
             <div className="grid gap-3 sm:gap-4">
               {question.options.map((option) => (
                 <Button
                   key={option.value}
                   variant={currentAnswer === option.value ? "default" : "outline"}
-                  className="h-auto p-4 sm:p-5 flex flex-col items-start w-full text-left transition-colors"
+                  className="h-auto p-3 sm:p-4 lg:p-5 flex flex-col items-start w-full text-left transition-colors"
                   onClick={() => handleAnswer(option.value)}
                 >
-                  <div className="font-semibold text-sm sm:text-base">{option.label}</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
+                  <div className="font-semibold text-xs sm:text-sm">{option.label}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground mt-1 sm:mt-2">
                     {option.description}
                   </div>
                 </Button>
@@ -131,20 +131,20 @@ export const Assessment = () => {
             </div>
           </CardContent>
 
-          <CardFooter className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-between">
+          <CardFooter className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-4 sm:p-6 sm:justify-between">
             <div className="flex gap-2 w-full sm:w-auto">
               <Button
                 variant="outline"
                 onClick={() => previousQuestion()}
                 disabled={currentQuestionIndex === 0}
-                className="flex-1 sm:flex-none"
+                className="flex-1 sm:flex-none text-xs sm:text-sm"
               >
                 Previous
               </Button>
               <Button
                 variant="ghost"
                 onClick={handleReset}
-                className="text-destructive hover:text-destructive flex-1 sm:flex-none"
+                className="text-destructive hover:text-destructive flex-1 sm:flex-none text-xs sm:text-sm"
               >
                 Reset
               </Button>
@@ -153,7 +153,7 @@ export const Assessment = () => {
               variant="outline"
               onClick={() => nextQuestion()}
               disabled={!currentAnswer}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-xs sm:text-sm"
             >
               {isLastQuestion ? 'Finish' : 'Skip'}
             </Button>
@@ -163,3 +163,5 @@ export const Assessment = () => {
     </div>
   );
 };
+
+export default Assessment;

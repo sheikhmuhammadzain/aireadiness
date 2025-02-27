@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useAssessmentStore } from '@/store/assessment';
+import useAssessmentStore from '@/store/assessment';
 import { Industry, CompanySize, OrganizationProfile } from '@/types/assessment';
 
 const industries: Industry[] = ['healthcare', 'finance', 'manufacturing', 'retail', 'technology', 'other'];
@@ -144,3 +144,5 @@ export const OrganizationProfileForm = () => {
     </form>
   );
 }; 
+
+export default OrganizationProfileForm;

@@ -105,4 +105,5 @@ class Logger {
   }
 }
 
-export const logger = Logger.getInstance(); 
+const logger = Logger.getInstance();
+export default logger;

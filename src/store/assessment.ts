@@ -119,7 +119,7 @@ const generateRecommendations = (
   return recommendations;
 }
 
-export const useAssessmentStore = create<AssessmentState>()(
+const useAssessmentStore = create<AssessmentState>()(
   persist(
     (set, get) => ({
       organizationProfile: null,
@@ -327,3 +327,5 @@ export const useAssessmentStore = create<AssessmentState>()(
     }
   )
 ) 
+
+export default useAssessmentStore;

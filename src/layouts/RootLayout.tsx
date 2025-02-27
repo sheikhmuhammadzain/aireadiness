@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { List, Hamburger } from '@phosphor-icons/react';
 
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const MenuLink = React.forwardRef<
@@ -93,7 +93,7 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild className="md:hidden">
                   <Button variant="ghost" size="icon">
-                    <Menu className="h-5 w-5" />
+                    <Hamburger className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
@@ -130,7 +130,7 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-sm text-muted-foreground order-2 sm:order-1">
-              © 2024 AI Readiness Assessment. All rights reserved.
+              2024 AI Readiness Assessment. All rights reserved.
             </div>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 order-1 sm:order-2">
               <Button variant="ghost" size="sm">Privacy Policy</Button>
@@ -142,4 +142,6 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       </footer>
     </div>
   );
-}; 
+};
+
+export default RootLayout;

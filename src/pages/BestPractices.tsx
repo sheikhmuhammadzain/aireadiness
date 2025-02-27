@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Brain, Database, Shield, Users, BarChart2, Lock, Workflow } from 'lucide-react';
+import { Brain, Database, Shield, Users, ChartBar, LockSimple, Flow } from '@phosphor-icons/react';
 
 interface PracticeCardProps {
   icon: React.ReactNode;
@@ -35,7 +35,7 @@ const PracticeCard: React.FC<PracticeCardProps> = ({ icon, title, description, p
   </Card>
 );
 
-export const BestPractices = () => {
+const BestPractices = () => {
   const practices = [
     {
       icon: <Database className="h-5 w-5" />,
@@ -86,7 +86,7 @@ export const BestPractices = () => {
       ]
     },
     {
-      icon: <BarChart2 className="h-5 w-5" />,
+      icon: <ChartBar className="h-5 w-5" />,
       title: "Performance Monitoring",
       description: "Tracking and improving AI system performance",
       practices: [
@@ -98,7 +98,7 @@ export const BestPractices = () => {
       ]
     },
     {
-      icon: <Lock className="h-5 w-5" />,
+      icon: <LockSimple className="h-5 w-5" />,
       title: "Ethics & Governance",
       description: "Ensuring responsible AI implementation",
       practices: [
@@ -130,3 +130,5 @@ export const BestPractices = () => {
     </div>
   );
 }; 
+
+export default BestPractices;

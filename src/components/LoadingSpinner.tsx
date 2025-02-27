@@ -1,46 +1,27 @@
-import React from 'react';
-import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { SpinnerGap } from '@phosphor-icons/react'
+import { cn } from '@/lib/utils'
 
 interface LoadingSpinnerProps {
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
-  fullScreen?: boolean;
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
 }
 
-const sizeClasses = {
-  sm: 'w-4 h-4',
-  md: 'w-6 h-6',
-  lg: 'w-8 h-8'
-};
-
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
-  className,
-  size = 'md',
-  fullScreen = false
-}) => {
-  const spinner = (
-    <Loader2 
-      className={cn(
-        'animate-spin text-primary',
-        sizeClasses[size],
-        className
-      )} 
-    />
-  );
-
-  if (fullScreen) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-        <div className="flex flex-col items-center gap-2">
-          {spinner}
-          <p className="text-sm text-muted-foreground animate-pulse">
-            Loading...
-          </p>
-        </div>
-      </div>
-    );
+const LoadingSpinner = ({ size = 'md', className }: LoadingSpinnerProps) => {
+  const sizeClasses = {
+    sm: 'h-4 w-4',
+    md: 'h-6 w-6',
+    lg: 'h-8 w-8'
   }
 
-  return spinner;
-}; 
+  return (
+    <SpinnerGap
+      className={cn(
+        'animate-spin',
+        sizeClasses[size],
+        className
+      )}
+    />
+  )
+}
+
+export default LoadingSpinner;

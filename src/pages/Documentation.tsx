@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, Book, Code, FileText, Settings, HelpCircle } from 'lucide-react';
+import { MagnifyingGlass, Book, Code, FileText, Gear, Question } from '@phosphor-icons/react';
 
 interface DocSectionProps {
   title: string;
@@ -36,7 +36,7 @@ const DocSection: React.FC<DocSectionProps> = ({ title, description, content, ta
   </Card>
 );
 
-export const Documentation = () => {
+const Documentation = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const gettingStartedDocs = [
@@ -108,7 +108,7 @@ export const Documentation = () => {
         </div>
 
         <div className="relative mb-8">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             type="search"
             placeholder="Search documentation..."
@@ -129,7 +129,7 @@ export const Documentation = () => {
               Technical Guide
             </TabsTrigger>
             <TabsTrigger value="faq">
-              <HelpCircle className="h-4 w-4 mr-2" />
+              <Question className="h-4 w-4 mr-2" />
               FAQ
             </TabsTrigger>
           </TabsList>
@@ -164,3 +164,5 @@ export const Documentation = () => {
     </div>
   );
 }; 
+
+export default Documentation;

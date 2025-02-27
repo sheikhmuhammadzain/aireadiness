@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useAssessmentStore } from '@/store/assessment';
-import { ArrowRight, BarChart2, Brain, Database, Lock, Shield, Users } from 'lucide-react';
+import useAssessmentStore from '@/store/assessment';
+import { ArrowRight, ChartBar, Brain, Database, LockSimple, Shield, Users } from '@phosphor-icons/react';
 
-export const Home = () => {
+const Home = () => {
   const navigate = useNavigate();
   const { resetAssessment } = useAssessmentStore();
 
@@ -75,12 +75,12 @@ export const Home = () => {
               description="Evaluate your computing resources and technical capabilities for AI workloads."
             />
             <FeatureCard
-              icon={<BarChart2 className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />}
+              icon={<ChartBar className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />}
               title="Business Strategy"
               description="Align AI initiatives with your business goals and measure potential ROI."
             />
             <FeatureCard
-              icon={<Lock className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />}
+              icon={<LockSimple className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />}
               title="Ethics & Governance"
               description="Establish responsible AI practices and governance frameworks."
             />
@@ -166,3 +166,5 @@ const StepCard = ({ number, title, description }: { number: number; title: strin
     <p className="text-sm sm:text-base text-muted-foreground">{description}</p>
   </div>
 );
+
+export default Home;
